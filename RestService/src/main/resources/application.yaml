@@ -1,0 +1,231 @@
+openapi: 3.0.1
+info:
+  title: Jsonar Application
+  description: Application to maintain customer film details
+  version: "1.0"
+servers:
+- url: "http://localhost:8080"
+  description: Generated server url
+paths:
+  /customers/getAllCusotmer:
+    get:
+      tags:
+      - customer-controller
+      operationId: getAll
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Customer"
+  /customers/getAllCustomerInfo:
+    get:
+      tags:
+      - customer-controller
+      operationId: getAllCustomerInfo
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Customer"
+  /customers/customerMoviesById:
+    get:
+      tags:
+      - customer-controller
+      operationId: getCustomerMoviesById
+      parameters:
+      - name: id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties:
+                    type: string
+  /customers/id:
+    get:
+      tags:
+      - customer-controller
+      operationId: getCustomerById
+      parameters:
+      - name: id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Customer"
+  /films/id:
+    get:
+      tags:
+      - film-controller
+      operationId: getAllFilms
+      parameters:
+      - name: id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Film"
+  /films/getAllFilmDetails:
+    get:
+      tags:
+      - film-controller
+      operationId: getAllFilmDetails
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Film"
+  /films/getAllCustomersByFilmId:
+    get:
+      tags:
+      - film-controller
+      operationId: getAllCustomersByFilmId
+      parameters:
+      - name: id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Customer"
+components:
+  schemas:
+    Customer:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        address:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        district:
+          type: string
+        firstname:
+          type: string
+        lastname:
+          type: string
+        phonenumber:
+          type: string
+        rentals:
+          type: array
+          items:
+            $ref: "#/components/schemas/Rentals"
+    Payments:
+      type: object
+      properties:
+        paymentId:
+          type: integer
+          format: int32
+        amount:
+          type: number
+          format: float
+        paymentDate:
+          type: string
+    Rentals:
+      type: object
+      properties:
+        rentalId:
+          type: integer
+          format: int32
+        filmTitle:
+          type: string
+        rentalDate:
+          type: string
+        returnDate:
+          type: string
+        filmId:
+          type: integer
+          format: int32
+        staffId:
+          type: integer
+          format: int32
+        payment:
+          type: array
+          items:
+            $ref: "#/components/schemas/Payments"
+    Actors:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        actorId:
+          type: integer
+          format: int32
+    Film:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        category:
+          type: string
+        description:
+          type: string
+        length:
+          type: integer
+          format: int32
+        rating:
+          type: string
+        rentalDuration:
+          type: integer
+          format: int32
+        replacementCost:
+          type: number
+          format: float
+        specialFeatures:
+          type: string
+        title:
+          type: string
+        actors:
+          type: array
+          items:
+            $ref: "#/components/schemas/Actors"

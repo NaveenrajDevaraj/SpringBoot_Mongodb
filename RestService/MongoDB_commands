@@ -1,0 +1,17 @@
+mongod --dbpath=<specify the data folder location>
+
+mongoimport --db dataset --collection customer --file <specify the customer json file location with the file name>
+
+mongoimport --db dataset --collection film --file <specify the film json file location with the file name>
+
+connect to the mongodb using following command
+    mongo
+   
+list the database using following command 
+	show dbs
+
+select the database using following command
+	use <database name>
+	
+list the collection using following command
+	show collections
